@@ -8,7 +8,7 @@
         <P> 
             Analizador <B> HTML </B> 
             <HR>
-        </P>
+        
     </BODY>
 
 </HTML>
