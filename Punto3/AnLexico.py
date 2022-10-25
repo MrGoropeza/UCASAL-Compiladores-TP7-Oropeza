@@ -47,7 +47,7 @@ t_finB = r"(</B>)"
 
 t_HR = r"(<HR>)"
 
-t_ignore = r'[ ]+\t\n'
+t_ignore = r'[ ]+'
 
 
 
