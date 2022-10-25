@@ -1,0 +1,428 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> S
+Rule 1     S -> inicioHTML html finHTML
+Rule 2     html -> inicioHEAD head finHEAD inicioBODY body finBODY
+Rule 3     head -> inicioTITLE textoPagina finTITLE
+Rule 4     body -> parrafo
+Rule 5     body -> <empty>
+Rule 6     parrafo -> inicioP content finP body
+Rule 7     content -> textoPagina content
+Rule 8     content -> HR content
+Rule 9     content -> inicioB content finB content
+Rule 10    content -> <empty>
+Rule 11    textoPagina -> texto textoPagina
+Rule 12    textoPagina -> <empty>
+
+Terminals, with rules where they appear
+
+HR                   : 8
+error                : 
+finB                 : 9
+finBODY              : 2
+finHEAD              : 2
+finHTML              : 1
+finP                 : 6
+finTITLE             : 3
+inicioB              : 9
+inicioBODY           : 2
+inicioHEAD           : 2
+inicioHTML           : 1
+inicioP              : 6
+inicioTITLE          : 3
+texto                : 11
+
+Nonterminals, with rules where they appear
+
+S                    : 0
+body                 : 2 6
+content              : 6 7 8 9 9
+head                 : 2
+html                 : 1
+parrafo              : 4
+textoPagina          : 3 7 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . inicioHTML html finHTML
+
+    inicioHTML      shift and go to state 2
+
+    S                              shift and go to state 1
+
+state 1
+
+    (0) S' -> S .
+
+
+
+state 2
+
+    (1) S -> inicioHTML . html finHTML
+    (2) html -> . inicioHEAD head finHEAD inicioBODY body finBODY
+
+    inicioHEAD      shift and go to state 4
+
+    html                           shift and go to state 3
+
+state 3
+
+    (1) S -> inicioHTML html . finHTML
+
+    finHTML         shift and go to state 5
+
+
+state 4
+
+    (2) html -> inicioHEAD . head finHEAD inicioBODY body finBODY
+    (3) head -> . inicioTITLE textoPagina finTITLE
+
+    inicioTITLE     shift and go to state 7
+
+    head                           shift and go to state 6
+
+state 5
+
+    (1) S -> inicioHTML html finHTML .
+
+    $end            reduce using rule 1 (S -> inicioHTML html finHTML .)
+
+
+state 6
+
+    (2) html -> inicioHEAD head . finHEAD inicioBODY body finBODY
+
+    finHEAD         shift and go to state 8
+
+
+state 7
+
+    (3) head -> inicioTITLE . textoPagina finTITLE
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+    texto           shift and go to state 10
+    finTITLE        reduce using rule 12 (textoPagina -> .)
+
+    textoPagina                    shift and go to state 9
+
+state 8
+
+    (2) html -> inicioHEAD head finHEAD . inicioBODY body finBODY
+
+    inicioBODY      shift and go to state 11
+
+
+state 9
+
+    (3) head -> inicioTITLE textoPagina . finTITLE
+
+    finTITLE        shift and go to state 12
+
+
+state 10
+
+    (11) textoPagina -> texto . textoPagina
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for texto resolved as shift
+    texto           shift and go to state 10
+    finTITLE        reduce using rule 12 (textoPagina -> .)
+    HR              reduce using rule 12 (textoPagina -> .)
+    inicioB         reduce using rule 12 (textoPagina -> .)
+    finP            reduce using rule 12 (textoPagina -> .)
+    finB            reduce using rule 12 (textoPagina -> .)
+
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+
+    textoPagina                    shift and go to state 13
+
+state 11
+
+    (2) html -> inicioHEAD head finHEAD inicioBODY . body finBODY
+    (4) body -> . parrafo
+    (5) body -> .
+    (6) parrafo -> . inicioP content finP body
+
+    finBODY         reduce using rule 5 (body -> .)
+    inicioP         shift and go to state 16
+
+    body                           shift and go to state 14
+    parrafo                        shift and go to state 15
+
+state 12
+
+    (3) head -> inicioTITLE textoPagina finTITLE .
+
+    finHEAD         reduce using rule 3 (head -> inicioTITLE textoPagina finTITLE .)
+
+
+state 13
+
+    (11) textoPagina -> texto textoPagina .
+
+    finTITLE        reduce using rule 11 (textoPagina -> texto textoPagina .)
+    HR              reduce using rule 11 (textoPagina -> texto textoPagina .)
+    inicioB         reduce using rule 11 (textoPagina -> texto textoPagina .)
+    texto           reduce using rule 11 (textoPagina -> texto textoPagina .)
+    finP            reduce using rule 11 (textoPagina -> texto textoPagina .)
+    finB            reduce using rule 11 (textoPagina -> texto textoPagina .)
+
+
+state 14
+
+    (2) html -> inicioHEAD head finHEAD inicioBODY body . finBODY
+
+    finBODY         shift and go to state 17
+
+
+state 15
+
+    (4) body -> parrafo .
+
+    finBODY         reduce using rule 4 (body -> parrafo .)
+
+
+state 16
+
+    (6) parrafo -> inicioP . content finP body
+    (7) content -> . textoPagina content
+    (8) content -> . HR content
+    (9) content -> . inicioB content finB content
+    (10) content -> .
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for HR resolved as shift
+  ! shift/reduce conflict for inicioB resolved as shift
+  ! shift/reduce conflict for texto resolved as shift
+  ! reduce/reduce conflict for finP resolved using rule 10 (content -> .)
+    HR              shift and go to state 20
+    inicioB         shift and go to state 21
+    finP            reduce using rule 10 (content -> .)
+    texto           shift and go to state 10
+
+  ! HR              [ reduce using rule 12 (textoPagina -> .) ]
+  ! inicioB         [ reduce using rule 12 (textoPagina -> .) ]
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+  ! finP            [ reduce using rule 12 (textoPagina -> .) ]
+
+    content                        shift and go to state 18
+    textoPagina                    shift and go to state 19
+
+state 17
+
+    (2) html -> inicioHEAD head finHEAD inicioBODY body finBODY .
+
+    finHTML         reduce using rule 2 (html -> inicioHEAD head finHEAD inicioBODY body finBODY .)
+
+
+state 18
+
+    (6) parrafo -> inicioP content . finP body
+
+    finP            shift and go to state 22
+
+
+state 19
+
+    (7) content -> textoPagina . content
+    (7) content -> . textoPagina content
+    (8) content -> . HR content
+    (9) content -> . inicioB content finB content
+    (10) content -> .
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for HR resolved as shift
+  ! shift/reduce conflict for inicioB resolved as shift
+  ! shift/reduce conflict for texto resolved as shift
+  ! reduce/reduce conflict for finP resolved using rule 10 (content -> .)
+  ! reduce/reduce conflict for finB resolved using rule 10 (content -> .)
+    HR              shift and go to state 20
+    inicioB         shift and go to state 21
+    finP            reduce using rule 10 (content -> .)
+    finB            reduce using rule 10 (content -> .)
+    texto           shift and go to state 10
+
+  ! HR              [ reduce using rule 12 (textoPagina -> .) ]
+  ! inicioB         [ reduce using rule 12 (textoPagina -> .) ]
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+  ! finP            [ reduce using rule 12 (textoPagina -> .) ]
+  ! finB            [ reduce using rule 12 (textoPagina -> .) ]
+
+    textoPagina                    shift and go to state 19
+    content                        shift and go to state 23
+
+state 20
+
+    (8) content -> HR . content
+    (7) content -> . textoPagina content
+    (8) content -> . HR content
+    (9) content -> . inicioB content finB content
+    (10) content -> .
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for HR resolved as shift
+  ! shift/reduce conflict for inicioB resolved as shift
+  ! shift/reduce conflict for texto resolved as shift
+  ! reduce/reduce conflict for finP resolved using rule 10 (content -> .)
+  ! reduce/reduce conflict for finB resolved using rule 10 (content -> .)
+    HR              shift and go to state 20
+    inicioB         shift and go to state 21
+    finP            reduce using rule 10 (content -> .)
+    finB            reduce using rule 10 (content -> .)
+    texto           shift and go to state 10
+
+  ! HR              [ reduce using rule 12 (textoPagina -> .) ]
+  ! inicioB         [ reduce using rule 12 (textoPagina -> .) ]
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+  ! finP            [ reduce using rule 12 (textoPagina -> .) ]
+  ! finB            [ reduce using rule 12 (textoPagina -> .) ]
+
+    content                        shift and go to state 24
+    textoPagina                    shift and go to state 19
+
+state 21
+
+    (9) content -> inicioB . content finB content
+    (7) content -> . textoPagina content
+    (8) content -> . HR content
+    (9) content -> . inicioB content finB content
+    (10) content -> .
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for HR resolved as shift
+  ! shift/reduce conflict for inicioB resolved as shift
+  ! shift/reduce conflict for texto resolved as shift
+  ! reduce/reduce conflict for finB resolved using rule 10 (content -> .)
+    HR              shift and go to state 20
+    inicioB         shift and go to state 21
+    finB            reduce using rule 10 (content -> .)
+    texto           shift and go to state 10
+
+  ! HR              [ reduce using rule 12 (textoPagina -> .) ]
+  ! inicioB         [ reduce using rule 12 (textoPagina -> .) ]
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+  ! finB            [ reduce using rule 12 (textoPagina -> .) ]
+
+    content                        shift and go to state 25
+    textoPagina                    shift and go to state 19
+
+state 22
+
+    (6) parrafo -> inicioP content finP . body
+    (4) body -> . parrafo
+    (5) body -> .
+    (6) parrafo -> . inicioP content finP body
+
+    finBODY         reduce using rule 5 (body -> .)
+    inicioP         shift and go to state 16
+
+    body                           shift and go to state 26
+    parrafo                        shift and go to state 15
+
+state 23
+
+    (7) content -> textoPagina content .
+
+    finP            reduce using rule 7 (content -> textoPagina content .)
+    finB            reduce using rule 7 (content -> textoPagina content .)
+
+
+state 24
+
+    (8) content -> HR content .
+
+    finP            reduce using rule 8 (content -> HR content .)
+    finB            reduce using rule 8 (content -> HR content .)
+
+
+state 25
+
+    (9) content -> inicioB content . finB content
+
+    finB            shift and go to state 27
+
+
+state 26
+
+    (6) parrafo -> inicioP content finP body .
+
+    finBODY         reduce using rule 6 (parrafo -> inicioP content finP body .)
+
+
+state 27
+
+    (9) content -> inicioB content finB . content
+    (7) content -> . textoPagina content
+    (8) content -> . HR content
+    (9) content -> . inicioB content finB content
+    (10) content -> .
+    (11) textoPagina -> . texto textoPagina
+    (12) textoPagina -> .
+
+  ! shift/reduce conflict for HR resolved as shift
+  ! shift/reduce conflict for inicioB resolved as shift
+  ! shift/reduce conflict for texto resolved as shift
+  ! reduce/reduce conflict for finP resolved using rule 10 (content -> .)
+  ! reduce/reduce conflict for finB resolved using rule 10 (content -> .)
+    HR              shift and go to state 20
+    inicioB         shift and go to state 21
+    finP            reduce using rule 10 (content -> .)
+    finB            reduce using rule 10 (content -> .)
+    texto           shift and go to state 10
+
+  ! HR              [ reduce using rule 12 (textoPagina -> .) ]
+  ! inicioB         [ reduce using rule 12 (textoPagina -> .) ]
+  ! texto           [ reduce using rule 12 (textoPagina -> .) ]
+  ! finP            [ reduce using rule 12 (textoPagina -> .) ]
+  ! finB            [ reduce using rule 12 (textoPagina -> .) ]
+
+    content                        shift and go to state 28
+    textoPagina                    shift and go to state 19
+
+state 28
+
+    (9) content -> inicioB content finB content .
+
+    finP            reduce using rule 9 (content -> inicioB content finB content .)
+    finB            reduce using rule 9 (content -> inicioB content finB content .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for texto in state 10 resolved as shift
+WARNING: shift/reduce conflict for HR in state 16 resolved as shift
+WARNING: shift/reduce conflict for inicioB in state 16 resolved as shift
+WARNING: shift/reduce conflict for texto in state 16 resolved as shift
+WARNING: shift/reduce conflict for HR in state 19 resolved as shift
+WARNING: shift/reduce conflict for inicioB in state 19 resolved as shift
+WARNING: shift/reduce conflict for texto in state 19 resolved as shift
+WARNING: shift/reduce conflict for HR in state 20 resolved as shift
+WARNING: shift/reduce conflict for inicioB in state 20 resolved as shift
+WARNING: shift/reduce conflict for texto in state 20 resolved as shift
+WARNING: shift/reduce conflict for HR in state 21 resolved as shift
+WARNING: shift/reduce conflict for inicioB in state 21 resolved as shift
+WARNING: shift/reduce conflict for texto in state 21 resolved as shift
+WARNING: shift/reduce conflict for HR in state 27 resolved as shift
+WARNING: shift/reduce conflict for inicioB in state 27 resolved as shift
+WARNING: shift/reduce conflict for texto in state 27 resolved as shift
+WARNING: reduce/reduce conflict in state 16 resolved using rule (content -> <empty>)
+WARNING: rejected rule (textoPagina -> <empty>) in state 16
+WARNING: reduce/reduce conflict in state 19 resolved using rule (content -> <empty>)
+WARNING: rejected rule (textoPagina -> <empty>) in state 19
+WARNING: reduce/reduce conflict in state 20 resolved using rule (content -> <empty>)
+WARNING: rejected rule (textoPagina -> <empty>) in state 20
+WARNING: reduce/reduce conflict in state 21 resolved using rule (content -> <empty>)
+WARNING: rejected rule (textoPagina -> <empty>) in state 21
+WARNING: reduce/reduce conflict in state 27 resolved using rule (content -> <empty>)
+WARNING: rejected rule (textoPagina -> <empty>) in state 27

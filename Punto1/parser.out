@@ -1,0 +1,203 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> E
+Rule 1     E -> T Eprima
+Rule 2     Eprima -> sum T Eprima
+Rule 3     Eprima -> <empty>
+Rule 4     T -> F Tprima
+Rule 5     Tprima -> times F Tprima
+Rule 6     Tprima -> <empty>
+Rule 7     F -> num
+Rule 8     F -> InP E FinP
+
+Terminals, with rules where they appear
+
+FinP                 : 8
+InP                  : 8
+error                : 
+num                  : 7
+sum                  : 2
+times                : 5
+
+Nonterminals, with rules where they appear
+
+E                    : 8 0
+Eprima               : 1 2
+F                    : 4 5
+T                    : 1 2
+Tprima               : 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . E
+    (1) E -> . T Eprima
+    (4) T -> . F Tprima
+    (7) F -> . num
+    (8) F -> . InP E FinP
+
+    num             shift and go to state 4
+    InP             shift and go to state 5
+
+    E                              shift and go to state 1
+    T                              shift and go to state 2
+    F                              shift and go to state 3
+
+state 1
+
+    (0) S' -> E .
+
+
+
+state 2
+
+    (1) E -> T . Eprima
+    (2) Eprima -> . sum T Eprima
+    (3) Eprima -> .
+
+    sum             shift and go to state 7
+    $end            reduce using rule 3 (Eprima -> .)
+    FinP            reduce using rule 3 (Eprima -> .)
+
+    Eprima                         shift and go to state 6
+
+state 3
+
+    (4) T -> F . Tprima
+    (5) Tprima -> . times F Tprima
+    (6) Tprima -> .
+
+    times           shift and go to state 9
+    sum             reduce using rule 6 (Tprima -> .)
+    $end            reduce using rule 6 (Tprima -> .)
+    FinP            reduce using rule 6 (Tprima -> .)
+
+    Tprima                         shift and go to state 8
+
+state 4
+
+    (7) F -> num .
+
+    times           reduce using rule 7 (F -> num .)
+    sum             reduce using rule 7 (F -> num .)
+    $end            reduce using rule 7 (F -> num .)
+    FinP            reduce using rule 7 (F -> num .)
+
+
+state 5
+
+    (8) F -> InP . E FinP
+    (1) E -> . T Eprima
+    (4) T -> . F Tprima
+    (7) F -> . num
+    (8) F -> . InP E FinP
+
+    num             shift and go to state 4
+    InP             shift and go to state 5
+
+    E                              shift and go to state 10
+    T                              shift and go to state 2
+    F                              shift and go to state 3
+
+state 6
+
+    (1) E -> T Eprima .
+
+    $end            reduce using rule 1 (E -> T Eprima .)
+    FinP            reduce using rule 1 (E -> T Eprima .)
+
+
+state 7
+
+    (2) Eprima -> sum . T Eprima
+    (4) T -> . F Tprima
+    (7) F -> . num
+    (8) F -> . InP E FinP
+
+    num             shift and go to state 4
+    InP             shift and go to state 5
+
+    T                              shift and go to state 11
+    F                              shift and go to state 3
+
+state 8
+
+    (4) T -> F Tprima .
+
+    sum             reduce using rule 4 (T -> F Tprima .)
+    $end            reduce using rule 4 (T -> F Tprima .)
+    FinP            reduce using rule 4 (T -> F Tprima .)
+
+
+state 9
+
+    (5) Tprima -> times . F Tprima
+    (7) F -> . num
+    (8) F -> . InP E FinP
+
+    num             shift and go to state 4
+    InP             shift and go to state 5
+
+    F                              shift and go to state 12
+
+state 10
+
+    (8) F -> InP E . FinP
+
+    FinP            shift and go to state 13
+
+
+state 11
+
+    (2) Eprima -> sum T . Eprima
+    (2) Eprima -> . sum T Eprima
+    (3) Eprima -> .
+
+    sum             shift and go to state 7
+    $end            reduce using rule 3 (Eprima -> .)
+    FinP            reduce using rule 3 (Eprima -> .)
+
+    Eprima                         shift and go to state 14
+
+state 12
+
+    (5) Tprima -> times F . Tprima
+    (5) Tprima -> . times F Tprima
+    (6) Tprima -> .
+
+    times           shift and go to state 9
+    sum             reduce using rule 6 (Tprima -> .)
+    $end            reduce using rule 6 (Tprima -> .)
+    FinP            reduce using rule 6 (Tprima -> .)
+
+    Tprima                         shift and go to state 15
+
+state 13
+
+    (8) F -> InP E FinP .
+
+    times           reduce using rule 8 (F -> InP E FinP .)
+    sum             reduce using rule 8 (F -> InP E FinP .)
+    $end            reduce using rule 8 (F -> InP E FinP .)
+    FinP            reduce using rule 8 (F -> InP E FinP .)
+
+
+state 14
+
+    (2) Eprima -> sum T Eprima .
+
+    $end            reduce using rule 2 (Eprima -> sum T Eprima .)
+    FinP            reduce using rule 2 (Eprima -> sum T Eprima .)
+
+
+state 15
+
+    (5) Tprima -> times F Tprima .
+
+    sum             reduce using rule 5 (Tprima -> times F Tprima .)
+    $end            reduce using rule 5 (Tprima -> times F Tprima .)
+    FinP            reduce using rule 5 (Tprima -> times F Tprima .)
+

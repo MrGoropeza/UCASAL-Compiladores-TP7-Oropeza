@@ -1,0 +1,14 @@
+<HTML>
+
+    <HEAD>
+        <TITLE> Titulo de la pagina </TITLE>
+    </HEAD>
+
+    <BODY>
+        <P> 
+            Analizador <B> HTML </B> 
+            <HR>
+        </P>
+    </BODY>
+
+</HTML>
